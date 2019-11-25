@@ -2,10 +2,14 @@ package DBHelper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.renatoandrade.projeto_faculdade_tebd.DisciplinaActivity;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class DisciplinaDAO extends SQLiteOpenHelper {
 
@@ -32,6 +36,34 @@ public class DisciplinaDAO extends SQLiteOpenHelper {
         db.execSQL(DDL);
         onCreate(db);
     }
+
+    public void salvar (DisciplinaValue disciplaVal){
+        ContentValues values = new ContentValues();
+        values.put("disciplina", disciplaVal.getDisciplina());
+
+        getWritableDatabase().insert("Disciplina",null,values);
+    }
+
+    public List getLista(){
+        List<DisciplinaValue> disciplinas = new LinkedList<DisciplinaValue>();
+
+        String q = "SELECT * FROM "+"Disciplina order by disciplina";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(q,null);
+
+        DisciplinaValue disciplina = null;
+        if( cursor.moveToFirst()){
+            do{
+                disciplina = new DisciplinaValue();
+                disciplina.set_id(Long.parseLong(cursor.getString(0)));
+                disciplina.setDisciplina(cursor.getString(1));
+                disciplinas.add(disciplina);
+            }while(cursor.moveToNext());
+        }
+        return disciplinas;
+    }
+
+
 
 
 }
