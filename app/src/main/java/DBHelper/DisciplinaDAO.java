@@ -43,22 +43,19 @@ public class DisciplinaDAO extends SQLiteOpenHelper {
 
         getWritableDatabase().insert("Disciplina",null,values);
     }
-/*
+
     public void delete(DisciplinaValue disc){
         String[] args;
-        args = new String[]{disc.get_id().toString()};
+        args = new String[]{String.valueOf(disc.get_id())};
         getWritableDatabase().delete("Disciplina", "id=?", args);
     }
+
 
     public void alterar(DisciplinaValue disc){
         ContentValues val = new ContentValues();
         val.put("disciplina", disc.getDisciplina());
-
-        getWritableDatabase().update("disciplina", val, "id=?",new String[] {disc.get_id().toString()});
+        getWritableDatabase().update("disciplina", val, "id=?",new String[] {String.valueOf(disc.get_id())});
     }
-*/
-
-
 
 
     public List getLista(){

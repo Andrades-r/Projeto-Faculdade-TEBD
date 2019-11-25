@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,14 +15,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView listV;
-
+    private TextView viewDisciplina;
+    private DisciplinaValue disciplinaValue = null;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -37,6 +42,22 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_new:
                 Intent intent = new Intent(this, DisciplinaActivity.class);
                 startActivity(intent);
+            case R.id.action_delete:
+                if (disciplinaValue == null){
+                    Toast.makeText(this, "Selecione uma Disiciplina", Toast.LENGTH_LONG).show();
+                }else{
+                    DisciplinaDAO dao = new DisciplinaDAO(this);
+                    dao.delete(disciplinaValue);
+                    dao.close();
+                }
+            case R.id.action_update:
+                if (disciplinaValue == null){
+                    Toast.makeText(this, "Selecione uma Disiciplina", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent upIntent = new Intent(this, DisciplinaUpdateActivity.class);
+                    upIntent.putExtra("disciplina",disciplinaValue);
+                    startActivity(upIntent);
+                }
             case R.id.action_settings:
                 return true;
             default:
@@ -51,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
         //final String[] disciplinas = {"Algoritmo", "Redes", "TEBD", "TELP", "Contabilidade", "Calculo 1", "Calculo 2", "Gerência de Projetos"};
         listV = (ListView) findViewById(R.id.listViewId);
+        viewDisciplina = (TextView) findViewById(R.id.selecionadaId);
+
         int layout = android.R.layout.simple_list_item_1;
         DisciplinaDAO dao = new DisciplinaDAO(this);
 
@@ -63,7 +86,11 @@ public class MainActivity extends AppCompatActivity {
         listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Disciplina Selecionada:\n"+disciplinas.get(position).toString(), Toast.LENGTH_SHORT).show();
+                String disciplinaSelecionada = disciplinas.get(position).toString();
+                disciplinaValue = disciplinas.get(position);
+                Toast.makeText(getApplicationContext(), "Disciplina Selecionada:\n"+ disciplinaSelecionada, Toast.LENGTH_SHORT).show();
+                viewDisciplina.setText(disciplinaSelecionada);
+                viewDisciplina.setTextColor(Color.parseColor("#000000"));
             }
         });
 

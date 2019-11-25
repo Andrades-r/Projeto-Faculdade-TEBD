@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Projeto-Faculdade-TEBD</string>
+    <string name="app_name">MyFaculdade</string>
     <string name="disciplinas">Disciplinas</string>
     <string name="disciplina">Disciplina</string>
     <string name="salvar">Salvar</string>
@@ -7,4 +7,6 @@
     <string name="action_new">Nova Disciplina</string>
     <string name="action_delete">Excluir Disciplina</string>
     <string name="action_update">Editar Disciplina</string>
+    <string name="selecione">Selecione Uma DIsciplina</string>
+    <string name="nodiscipline">Nenhuma Disciplina Selecionada</string>
 </resources>
