@@ -26,7 +26,7 @@ public class DisciplinaDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String DDL= "CREATE TABLE Disciplina (id INTEGER PRIMARY KEY,"+ "disciplina TEXT UNIQUE NOT NULL)";
+        String DDL= "CREATE TABLE Disciplina (id INTEGER PRIMARY KEY AUTOINCREMENT,"+ "disciplina TEXT UNIQUE NOT NULL)";
         db.execSQL(DDL);
     }
 
@@ -37,9 +37,9 @@ public class DisciplinaDAO extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void salvar (DisciplinaValue disciplaVal){
+    public void salvar (String disciplaVal){
         ContentValues values = new ContentValues();
-        values.put("disciplina", disciplaVal.getDisciplina());
+        values.put("disciplina", disciplaVal);
 
         getWritableDatabase().insert("Disciplina",null,values);
     }

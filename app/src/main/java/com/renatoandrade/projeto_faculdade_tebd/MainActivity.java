@@ -1,5 +1,7 @@
 package com.renatoandrade.projeto_faculdade_tebd;
 
+import DBHelper.DisciplinaDAO;
+import DBHelper.DisciplinaValue;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,22 +49,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final String[] disciplinas = {"Algoritmo", "Redes", "TEBD", "TELP", "Contabilidade", "Calculo 1", "Calculo 2", "Gerência de Projetos"};
+        //final String[] disciplinas = {"Algoritmo", "Redes", "TEBD", "TELP", "Contabilidade", "Calculo 1", "Calculo 2", "Gerência de Projetos"};
         listV = (ListView) findViewById(R.id.listViewId);
+        int layout = android.R.layout.simple_list_item_1;
+        DisciplinaDAO dao = new DisciplinaDAO(this);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, disciplinas);
+        ArrayList<DisciplinaValue> disciplinas = (ArrayList<DisciplinaValue>) new ArrayList(dao.getLista());
+        dao.close();
 
+        ArrayAdapter<DisciplinaValue> adapter = new ArrayAdapter<DisciplinaValue>(this, layout, disciplinas);
         listV.setAdapter(adapter);
 
         listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Disciplina Selecionada:\n"+disciplinas[position], Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Disciplina Selecionada:\n", Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
 
-
-
+    protected void onResume()	{
+        super.onResume();
+        listV = (ListView) findViewById(R.id.listViewId);
+        DisciplinaDAO dao	=	new	DisciplinaDAO(this);
+        ArrayList<DisciplinaValue>	disciplinas=	new	ArrayList(dao.getLista());
+        dao.close();
+        int	layout	=	android.R.layout.simple_list_item_1;
+        ArrayAdapter<DisciplinaValue>	adapter	= new ArrayAdapter<DisciplinaValue>(this,layout,	disciplinas);
+        listV.setAdapter(adapter);
     }
 }

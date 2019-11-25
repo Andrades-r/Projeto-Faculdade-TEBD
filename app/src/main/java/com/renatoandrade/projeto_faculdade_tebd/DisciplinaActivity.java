@@ -1,5 +1,7 @@
 package com.renatoandrade.projeto_faculdade_tebd;
 
+import DBHelper.DisciplinaDAO;
+import DBHelper.DisciplinaValue;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -21,9 +23,17 @@ public class DisciplinaActivity extends AppCompatActivity {
         edit = (EditText) findViewById(R.id.formDisciplinaId);
         botao = (Button) findViewById(R.id.formSalvarId);
 
+        final DisciplinaDAO dao = new DisciplinaDAO(this);
+        DisciplinaValue disciplina = new DisciplinaValue();
+
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String tmpDisciplina = edit.getText().toString();
+                String disciplina =tmpDisciplina;
+                dao.salvar(disciplina);
+                dao.close();
                 finish();
             }
         });
