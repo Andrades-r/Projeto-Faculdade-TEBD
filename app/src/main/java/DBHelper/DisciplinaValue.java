@@ -22,9 +22,7 @@ public class DisciplinaValue implements java.io.Serializable {
     }
 
     public String toString(){
-        String tmp = this.disciplina;
-        tmp = tmp.substring(0, 1).toUpperCase() + tmp.substring(1);
-        return tmp;
+        return this.disciplina;
     }
 
 }

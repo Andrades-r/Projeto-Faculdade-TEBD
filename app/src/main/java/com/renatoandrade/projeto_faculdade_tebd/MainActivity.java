@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView listV;
     private TextView viewDisciplina;
-    private DisciplinaValue disciplinaValue = null;
+    private DisciplinaValue disciplinaValue;
+    private ArrayList<DisciplinaValue> disciplinas;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,6 +50,17 @@ public class MainActivity extends AppCompatActivity {
                     DisciplinaDAO dao = new DisciplinaDAO(this);
                     dao.delete(disciplinaValue);
                     dao.close();
+
+                    //reset layout
+                    listV = (ListView) findViewById(R.id.listViewId);
+                    dao	=	new	DisciplinaDAO(this);
+                    disciplinas = (ArrayList<DisciplinaValue>) new ArrayList(dao.getLista());
+                    dao.close();
+                    int	layout	=	android.R.layout.simple_list_item_1;
+                    ArrayAdapter<DisciplinaValue>	adapter	= new ArrayAdapter<DisciplinaValue>(this,layout,	disciplinas);
+                    listV.setAdapter(adapter);
+
+
                 }
             case R.id.action_update:
                 if (disciplinaValue == null){
@@ -73,22 +85,22 @@ public class MainActivity extends AppCompatActivity {
         //final String[] disciplinas = {"Algoritmo", "Redes", "TEBD", "TELP", "Contabilidade", "Calculo 1", "Calculo 2", "Gerência de Projetos"};
         listV = (ListView) findViewById(R.id.listViewId);
         viewDisciplina = (TextView) findViewById(R.id.selecionadaId);
-
         int layout = android.R.layout.simple_list_item_1;
-        DisciplinaDAO dao = new DisciplinaDAO(this);
 
-        final ArrayList<DisciplinaValue> disciplinas = (ArrayList<DisciplinaValue>) new ArrayList(dao.getLista());
+        DisciplinaDAO dao = new DisciplinaDAO(this);
+        disciplinas = (ArrayList<DisciplinaValue>) new ArrayList(dao.getLista());
         dao.close();
 
         ArrayAdapter<DisciplinaValue> adapter = new ArrayAdapter<DisciplinaValue>(this, layout, disciplinas);
-        listV.setAdapter(adapter);
+        if(disciplinas.size()>0)
+            listV.setAdapter(adapter);
 
         listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String disciplinaSelecionada = disciplinas.get(position).toString();
                 disciplinaValue = disciplinas.get(position);
-                Toast.makeText(getApplicationContext(), "Disciplina Selecionada:\n"+ disciplinaSelecionada, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Disciplina Selecionada:\n"+ disciplinaSelecionada, Toast.LENGTH_SHORT).show();
                 viewDisciplina.setText(disciplinaSelecionada);
                 viewDisciplina.setTextColor(Color.parseColor("#000000"));
             }
@@ -100,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         listV = (ListView) findViewById(R.id.listViewId);
         DisciplinaDAO dao	=	new	DisciplinaDAO(this);
-        ArrayList<DisciplinaValue>	disciplinas=	new	ArrayList(dao.getLista());
+        disciplinas = (ArrayList<DisciplinaValue>) new ArrayList(dao.getLista());
         dao.close();
         int	layout	=	android.R.layout.simple_list_item_1;
         ArrayAdapter<DisciplinaValue>	adapter	= new ArrayAdapter<DisciplinaValue>(this,layout,	disciplinas);
