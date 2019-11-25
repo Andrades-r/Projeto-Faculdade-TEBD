@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         int layout = android.R.layout.simple_list_item_1;
         DisciplinaDAO dao = new DisciplinaDAO(this);
 
-        ArrayList<DisciplinaValue> disciplinas = (ArrayList<DisciplinaValue>) new ArrayList(dao.getLista());
+        final ArrayList<DisciplinaValue> disciplinas = (ArrayList<DisciplinaValue>) new ArrayList(dao.getLista());
         dao.close();
 
         ArrayAdapter<DisciplinaValue> adapter = new ArrayAdapter<DisciplinaValue>(this, layout, disciplinas);
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Disciplina Selecionada:\n", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Disciplina Selecionada:\n"+disciplinas.get(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 

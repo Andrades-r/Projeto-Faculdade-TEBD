@@ -43,11 +43,28 @@ public class DisciplinaDAO extends SQLiteOpenHelper {
 
         getWritableDatabase().insert("Disciplina",null,values);
     }
+/*
+    public void delete(DisciplinaValue disc){
+        String[] args;
+        args = new String[]{disc.get_id().toString()};
+        getWritableDatabase().delete("Disciplina", "id=?", args);
+    }
+
+    public void alterar(DisciplinaValue disc){
+        ContentValues val = new ContentValues();
+        val.put("disciplina", disc.getDisciplina());
+
+        getWritableDatabase().update("disciplina", val, "id=?",new String[] {disc.get_id().toString()});
+    }
+*/
+
+
+
 
     public List getLista(){
         List<DisciplinaValue> disciplinas = new LinkedList<DisciplinaValue>();
 
-        String q = "SELECT * FROM "+"Disciplina order by disciplina";
+        String q = "SELECT * FROM "+"Disciplina ORDER BY disciplina";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(q,null);
 
