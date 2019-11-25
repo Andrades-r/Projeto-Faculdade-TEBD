@@ -33,10 +33,5 @@ public class DisciplinaDAO extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void	salvar(DisciplinaValue disciplinaValue)	{
-        ContentValues values	=	new	ContentValues();
-        values.put("disciplina",	disciplinaValue.getDisciplina());
-        getWritableDatabase().insert("Disciplina",	null,	values	);
-    }
 
 }
