@@ -13,6 +13,7 @@ public class DisciplinaActivity extends AppCompatActivity {
 
     private Button botao;
     private EditText edit;
+    private DisciplinaValue dv;
 
 
     @Override

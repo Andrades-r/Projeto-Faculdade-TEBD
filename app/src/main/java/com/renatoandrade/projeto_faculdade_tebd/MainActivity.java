@@ -31,54 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<DisciplinaValue> disciplinas;
     private ArrayAdapter<DisciplinaValue> adapterDisciplina;
 
-    //@Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_lista_disciplinas,menu);
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-   // @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()){
-//            case R.id.action_new:
-//                Intent intent = new Intent(this, DisciplinaActivity.class);
-//                startActivity(intent);
-//            case R.id.action_delete:
-//                if (disciplinaValue == null){
-//                    Toast.makeText(this, "Selecione uma Disiciplina", Toast.LENGTH_LONG).show();
-//                }else{
-//                    DisciplinaDAO dao = new DisciplinaDAO(this);
-//                    dao.delete(disciplinaValue);
-//                    dao.close();
-//
-//                    //reset layout
-//                    listV = (ListView) findViewById(R.id.listViewId);
-//                    dao	=	new	DisciplinaDAO(this);
-//                    disciplinas = (ArrayList<DisciplinaValue>) new ArrayList(dao.getLista());
-//                    dao.close();
-//                    int	layout	=	android.R.layout.simple_list_item_1;
-//                    ArrayAdapter<DisciplinaValue>	adapter	= new ArrayAdapter<DisciplinaValue>(this,layout,	disciplinas);
-//                    listV.setAdapter(adapter);
-//
-//
-//                }
-//            case R.id.action_update:
-//                if (disciplinaValue == null){
-//                    Toast.makeText(this, "Selecione uma Disiciplina", Toast.LENGTH_LONG).show();
-//                }else{
-//                    Intent upIntent = new Intent(this, DisciplinaUpdateActivity.class);
-//                    upIntent.putExtra("disciplina",disciplinaValue);
-//                    startActivity(upIntent);
-//                }
-//            case R.id.action_settings:
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,16 +78,29 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
+        disciplinaValue=	(DisciplinaValue)
+                this.adapterDisciplina.getItem(((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).position);
         switch(item.getItemId()){
             case R.id.action_new:
-                Toast.makeText(getApplicationContext(),"new", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,DisciplinaActivity.class);
+                intent.putExtra("algo",disciplinaValue);
+                startActivity(intent);
+                return true;
             case R.id.action_delete:
-                Toast.makeText(this,"delete", Toast.LENGTH_SHORT).show();
+                DisciplinaDAO dao = new DisciplinaDAO(MainActivity.this);
+                dao.delete(disciplinaValue);
+                dao.close();
+                Toast.makeText(this, "deletado", Toast.LENGTH_SHORT).show();
+                this.onResume();
+                return true;
             case R.id.action_update:
-                Toast.makeText(this,"update", Toast.LENGTH_SHORT).show();
-            default:
-                return false;
+                Intent intenti = new Intent(this, DisciplinaUpdateActivity.class);
+                intenti.putExtra("disciplina",disciplinaValue);
+                startActivity(intenti)  ;
+                return true;
+                default:
+                    return super.onContextItemSelected(item);
         }
-        //        return super.onContextItemSelected(item);
+
     }
 }

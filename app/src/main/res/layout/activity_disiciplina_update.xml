@@ -6,4 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".DisciplinaUpdateActivity">
 
+    <TextView
+        android:id="@+id/viewUpdateId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="95dp"
+        android:text="@string/upadate"
+        android:textSize="@dimen/titleList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editDisciplinaId"
+        android:layout_width="377dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="36dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/updateBotaoId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewUpdateId" />
+
+    <Button
+        android:id="@+id/updateBotaoId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginLeft="128dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/action_update"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDisciplinaId" />
+
+    <TextView
+        android:id="@+id/idDisicplinaView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="174dp"
+        tools:layout_editor_absoluteY="300dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

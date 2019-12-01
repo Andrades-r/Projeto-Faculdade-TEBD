@@ -9,4 +9,5 @@
     <string name="action_update">Editar Disciplina</string>
     <string name="selecione">Selecione Uma DIsciplina</string>
     <string name="nodiscipline">Nenhuma Disciplina Selecionada</string>
+    <string name="upadate">Disciplina:</string>
 </resources>
