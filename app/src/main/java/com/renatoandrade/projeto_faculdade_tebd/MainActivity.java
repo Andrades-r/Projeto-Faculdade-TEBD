@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private ListView lista;
-    private TextView viewDisciplina;
     private DisciplinaValue disciplinaValue;
     private ArrayList<DisciplinaValue> disciplinas;
     private ArrayAdapter<DisciplinaValue> adapterDisciplina;
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         //final String[] disciplinas = {"Algoritmo", "Redes", "TEBD", "TELP", "Contabilidade", "Calculo 1", "Calculo 2", "Gerência de Projetos"};
 
         lista = (ListView) findViewById(R.id.listViewId);
-        viewDisciplina = (TextView) findViewById(R.id.selecionadaId);
         int layout = android.R.layout.simple_list_item_1;
 
         DisciplinaDAO dao = new DisciplinaDAO(this);
