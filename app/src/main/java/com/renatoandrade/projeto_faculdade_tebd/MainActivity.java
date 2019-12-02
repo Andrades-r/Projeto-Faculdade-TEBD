@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private DisciplinaValue disciplinaValue;
     private ArrayList<DisciplinaValue> disciplinas;
     private ArrayAdapter<DisciplinaValue> adapterDisciplina;
+    private Button botao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         lista = (ListView) findViewById(R.id.listViewId);
         int layout = android.R.layout.simple_list_item_1;
-
+        botao = (Button) findViewById(R.id.botaoAddId);
         DisciplinaDAO dao = new DisciplinaDAO(this);
         disciplinas = (ArrayList<DisciplinaValue>) new ArrayList(dao.getLista());
         dao.close();
@@ -49,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
         this.registerForContextMenu(lista);
 
 
+        final Intent intent2 = new Intent(this,DisciplinaActivity.class);
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent2);
+            }
+        });
 
     }
 
@@ -80,9 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 this.adapterDisciplina.getItem(((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).position);
         switch(item.getItemId()){
             case R.id.action_new:
-                Intent intent = new Intent(this,DisciplinaActivity.class);
-                intent.putExtra("algo",disciplinaValue);
-                startActivity(intent);
+                Toast.makeText(this, "Para adicionar Disicplina aperte o botao grandao", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_delete:
                 DisciplinaDAO dao = new DisciplinaDAO(MainActivity.this);

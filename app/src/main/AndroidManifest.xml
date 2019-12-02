@@ -12,7 +12,7 @@
         <activity android:name=".DisciplinaUpdateActivity"></activity>
         <activity android:name=".DisciplinaDeleteActivity" />
         <activity android:name=".DisciplinaActivity" />
-        <activity android:name=".disciplina" />
+<!--        <activity android:name="" />-->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
